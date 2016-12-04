@@ -1,6 +1,6 @@
 
-#ifndef THREADS_H
-#define THREADS_H
+#ifndef CONSOLE_H
+#define CONSOLE_H
 
 #define CONSOLE_BUFF 6
 

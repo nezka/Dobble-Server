@@ -35,13 +35,12 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/clients.o \
-	${OBJECTDIR}/console_stuff.o \
-	${OBJECTDIR}/game_engine.o \
+	${OBJECTDIR}/client.o \
+	${OBJECTDIR}/console.o \
+	${OBJECTDIR}/game_actions.o \
 	${OBJECTDIR}/main.o \
-	${OBJECTDIR}/network_stuff.o \
-	${OBJECTDIR}/parser.o \
-	${OBJECTDIR}/tests.o
+	${OBJECTDIR}/message.o \
+	${OBJECTDIR}/network.o
 
 
 # C Compiler Flags
@@ -68,40 +67,35 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/dobble_server: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.c} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/dobble_server ${OBJECTFILES} ${LDLIBSOPTIONS}
 
-${OBJECTDIR}/clients.o: clients.c
+${OBJECTDIR}/client.o: client.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/clients.o clients.c
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/client.o client.c
 
-${OBJECTDIR}/console_stuff.o: console_stuff.c
+${OBJECTDIR}/console.o: console.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/console_stuff.o console_stuff.c
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/console.o console.c
 
-${OBJECTDIR}/game_engine.o: game_engine.c
+${OBJECTDIR}/game_actions.o: game_actions.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/game_engine.o game_engine.c
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/game_actions.o game_actions.c
 
 ${OBJECTDIR}/main.o: main.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.c
 
-${OBJECTDIR}/network_stuff.o: network_stuff.c
+${OBJECTDIR}/message.o: message.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/network_stuff.o network_stuff.c
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/message.o message.c
 
-${OBJECTDIR}/parser.o: parser.c
+${OBJECTDIR}/network.o: network.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/parser.o parser.c
-
-${OBJECTDIR}/tests.o: tests.c
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/tests.o tests.c
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/network.o network.c
 
 # Subprojects
 .build-subprojects:

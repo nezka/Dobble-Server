@@ -3,7 +3,9 @@
 
 #define MAX_QUEUED_CONNECTIONS 5
 #define BUFF_SIZE 420
-#define CLIENT_COUNT 20
+#define CLIENT_COUNT 30
+#define PLAYER_COUNT 30
+#define GAME_COUNT 10
 #define NAME_LENGTH 10
 
 #endif /* CONSTANTS_H */

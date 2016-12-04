@@ -9,18 +9,13 @@
 #include <stdlib.h>
 #include <pthread.h>
 #include "main.h"
-#include "network_stuff.h"
-#include "tests.h"
-#include "console_stuff.h"
+#include "game_actions.h"
+#include "console.h"
 
 int main(int argc, char** argv) {
-    int run_test = 0;
-    int *port;
-    //run_test = 1;
-    /*if(run_test){
-        tests_run();
-        return 0;
-    }*/
+   
+    int port;
+   
     pthread_t console_thread;
     pthread_t network_thread;
 
@@ -30,8 +25,8 @@ int main(int argc, char** argv) {
     }
 
     if (argc == 2) {
-        *port = atoi(argv[1]);
-        if (pthread_create(&network_thread, NULL, network_listening, (void *)port)) {
+        port = atoi(argv[1]);
+        if (pthread_create(&network_thread, NULL, run_game, (void *)&port)) {
             printf("Error creating network thread\n");
             return 1;
           }   
@@ -49,7 +44,6 @@ int main(int argc, char** argv) {
         return 2;
     }
 
-    //run(10007);
     return (EXIT_SUCCESS);
 }
 

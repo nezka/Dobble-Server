@@ -26,8 +26,6 @@
       </nativedebugger>
       <runprofile version="9">
         <runcommandpicklist>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" 10012</runcommandpicklistitem>
-          <runcommandpicklistitem>"${OUTPUT_PATH}" 10013</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" 1001</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" 10014</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" 10015</runcommandpicklistitem>
@@ -36,8 +34,10 @@
           <runcommandpicklistitem>"${OUTPUT_PATH}" 10017</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" 10019</runcommandpicklistitem>
           <runcommandpicklistitem>"${OUTPUT_PATH}" 10011</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" 10012</runcommandpicklistitem>
+          <runcommandpicklistitem>"${OUTPUT_PATH}" 10013</runcommandpicklistitem>
         </runcommandpicklist>
-        <runcommand>"${OUTPUT_PATH}" 10011</runcommand>
+        <runcommand>"${OUTPUT_PATH}" 10013</runcommand>
         <rundir></rundir>
         <buildfirst>true</buildfirst>
         <terminal-type>0</terminal-type>

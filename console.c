@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "console_stuff.h"
+#include "console.h"
 
 void *console_listening(void *param) {
     char rcv[CONSOLE_BUFF];
