@@ -1,4 +1,6 @@
 #include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "parser.h"
 #include "constants.h"
 
@@ -17,7 +19,7 @@ void prepare_message_broadcast(char *dst) {
     memcpy(dst, str, strlen(str) * sizeof(char));
 }
 
-message *process_message(char *rcvBuf, char *sendBuf, int len) {
+message *parse_message(char *rcvBuf, int len) {
     message *mes;
     
     mes = malloc(sizeof(message));
@@ -25,25 +27,25 @@ message *process_message(char *rcvBuf, char *sendBuf, int len) {
         printf("Malloc failure!\n");
         return NULL;
     }
-    memset(sendBuf, 0, BUFF_SIZE);
+    
     memset(mes, 0, sizeof(message));
     mes->type = rcvBuf[0];
     mes->subtype = rcvBuf[1];
-    mes->len = rcvBuf[2];
-    mes->str = malloc(BUFF_SIZE - 4);
-    memset(mes->str, 0, BUFF_SIZE - 4);
-    memcpy(mes->str, rcvBuf + 3, BUFF_SIZE - 4);
+    mes->len = len - 3; //type, subtype, enter
+    mes->str = malloc(BUFF_SIZE - 3);
+    memset(mes->str, 0, BUFF_SIZE - 3);
+    memcpy(mes->str, rcvBuf + 2, BUFF_SIZE - 3);
     printf("Zprava: %s\n", mes->str);
     printf("Type: %c, subtype: %c, len: %d\n", mes->type, mes->subtype, mes->len);
     switch(rcvBuf[0]) {
         case 'B':
-            prepare_message_broadcast(sendBuf);
-            return 1;
+            //prepare_message_broadcast(sendBuf);
+            return mes;
             break;
         default:
-            prepare_message_reverse(sendBuf, rcvBuf, len);
-            return 0;
+            //prepare_message_reverse(sendBuf, rcvBuf, len);
+            return mes;
             break;
     }
-
+    
 }

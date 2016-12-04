@@ -11,14 +11,13 @@ client *make_client(int fd) {
         return NULL;
     }
     cl->client_fd = fd;
+    cl->bad_messages = 0;
     cl->secret = 5;
     cl->taken = 1;
     return cl;
 }
 
-void add_name(client *cl, char *name, int len) {
-    strncpy(cl->name, name, len);
-}
+
 
 void add_new_client(int fd, client* array, int len) {
     client *cl;
@@ -26,7 +25,7 @@ void add_new_client(int fd, client* array, int len) {
     cl = make_client(fd);
     i = find_first_empty(array, len);
     if (i < 0) {
-        printf("kuk");
+        printf("spatne add new client");
         return;
     }
     printf("index v poli: %d\n", i);

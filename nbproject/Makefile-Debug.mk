@@ -37,6 +37,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/clients.o \
 	${OBJECTDIR}/console_stuff.o \
+	${OBJECTDIR}/game_engine.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/network_stuff.o \
 	${OBJECTDIR}/parser.o \
@@ -76,6 +77,11 @@ ${OBJECTDIR}/console_stuff.o: console_stuff.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/console_stuff.o console_stuff.c
+
+${OBJECTDIR}/game_engine.o: game_engine.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/game_engine.o game_engine.c
 
 ${OBJECTDIR}/main.o: main.c
 	${MKDIR} -p ${OBJECTDIR}

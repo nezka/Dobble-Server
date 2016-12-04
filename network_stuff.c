@@ -9,6 +9,7 @@
 #include "network_stuff.h"
 #include "constants.h"
 #include "parser.h"
+#include "game_engine.h"
 
 int bind_it(int port) {
     int server_socket, return_value;
@@ -107,7 +108,7 @@ int select_it(int server_socket, fd_set client_socks, client *clients) {
     struct sockaddr_in my_addr, peer_addr;
     client curr_client;
     client client_arr[CLIENT_COUNT];
-    
+    message *mes;
     memset(client_arr, 0, CLIENT_COUNT*sizeof(client));
 
     for (;;) {
@@ -139,18 +140,22 @@ int select_it(int server_socket, fd_set client_socks, client *clients) {
                     if (a2read > 0) {
                         memset(rcvBuf, 0, BUFF_SIZE);
                         read(fd, rcvBuf, a2read);
-
-                        broad = process_message(rcvBuf, sendBuf, a2read);
-                        if (broad) {
+                        
+                        mes = parse_message(rcvBuf, a2read);
+                        i = find_client_by_fd(fd, client_arr, CLIENT_COUNT);
+                        process_message(mes, &client_arr[i], sendBuf);
+                       /* if (broad) {
                             for (i = 3; i < FD_SETSIZE; i++) {
                                 if (FD_ISSET(i, &client_socks) && i != server_socket) {
                                     send_it(i, sendBuf, 10);
 
                                 }
                             }
-                        } else {
-                            send_it(fd, sendBuf, a2read);
-                        }
+                        } else {*/
+                        send_it(fd, sendBuf, a2read);
+                        free(mes);
+                        memset(sendBuf, 0, BUFF_SIZE);
+                        
 
 
 

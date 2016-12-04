@@ -5,7 +5,7 @@
 
 void prepare_message_reverse(char *dst, const char *src, int len);
 void prepare_message_broadcast(char *dst);
-message *process_message(char *rcvBuf, char *sendBuf, int len);
+message *parse_message(char *rcvBuf, int len);
 
 #endif /* PARSER_H */
 
