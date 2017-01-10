@@ -1,16 +1,10 @@
-build/Debug/GNU-Linux/game_actions.o: game_actions.c network.h \
- constants.h message.h client.h game_actions.h player.h room.h
-
-network.h:
-
-constants.h:
-
-message.h:
-
-client.h:
+build/Debug/GNU-Linux/game_actions.o: game_actions.c game_actions.h \
+ client.h game.h constants.h
 
 game_actions.h:
 
-player.h:
+client.h:
 
-room.h:
+game.h:
+
+constants.h:

@@ -5,8 +5,9 @@
 #define BUFF_SIZE 420
 #define CLIENT_COUNT 30
 #define PLAYER_COUNT 30
-#define GAME_COUNT 10
+#define GAME_COUNT 20
+#define CARD_COUNT 11
 #define NAME_LENGTH 10
-
+#define MESSAGE_LEN 255
 #endif /* CONSTANTS_H */
 

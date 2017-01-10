@@ -1,15 +1,17 @@
-build/Debug/GNU-Linux/main.o: main.c main.h game_actions.h client.h \
- player.h room.h message.h console.h
+build/Debug/GNU-Linux/main.o: main.c main.h dobble_server.h client.h \
+ game.h card_stack.h constants.h message.h console.h
 
 main.h:
 
-game_actions.h:
+dobble_server.h:
 
 client.h:
 
-player.h:
+game.h:
 
-room.h:
+card_stack.h:
+
+constants.h:
 
 message.h:
 

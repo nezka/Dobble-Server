@@ -9,8 +9,18 @@
 #include <stdlib.h>
 #include <pthread.h>
 #include "main.h"
-#include "game_actions.h"
+#include "dobble_server.h"
 #include "console.h"
+
+
+/* if (broad) {
+                            for (i = 3; i < FD_SETSIZE; i++) {
+                                if (FD_ISSET(i, &client_socks) && i != server_socket) {
+                                    send_it(i, sendBuf, 10);
+
+                                }
+                            }
+                        } else {*/
 
 int main(int argc, char** argv) {
    
@@ -25,7 +35,7 @@ int main(int argc, char** argv) {
     }
 
     if (argc == 2) {
-        port = atoi(argv[1]);
+        port = 10002;//atoi(argv[1]);
         if (pthread_create(&network_thread, NULL, run_game, (void *)&port)) {
             printf("Error creating network thread\n");
             return 1;
