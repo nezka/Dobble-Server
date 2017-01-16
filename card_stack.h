@@ -16,15 +16,22 @@
 
 #include "constants.h"
 
+typedef struct s_card{
+    int symbols[SYMBOLS_PER_CARD];
+} s_card;
+
 typedef struct card_stack {
     int cards[CARD_COUNT];
     int player1;
     int player2;
     int middle;
+    s_card card_symbols[CARD_COUNT];
 } card_stack;
 
 
 int init_stack(card_stack *stack);
 void shuffle(int *array, int n);
+void fill_symbols(s_card *card_symbols, int card_count);
+int is_it_right_symbol(int player_card, int middle, int symbol, card_stack *stack);
 #endif /* CARD_STACK_H */
 

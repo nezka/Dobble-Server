@@ -35,7 +35,7 @@ int main(int argc, char** argv) {
     }
 
     if (argc == 2) {
-        port = 10002;//atoi(argv[1]);
+        port = 10007;//atoi(argv[1]);
         if (pthread_create(&network_thread, NULL, run_game, (void *)&port)) {
             printf("Error creating network thread\n");
             return 1;

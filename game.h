@@ -12,6 +12,7 @@ typedef struct game {
     client *player2;
     int taken;
     card_stack stack;
+    int secret;
 } game;
 
 game *make_game(client *first, client *sec);

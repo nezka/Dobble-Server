@@ -1,16 +1,16 @@
 build/Debug/GNU-Linux/dobble_server.o: dobble_server.c network.h \
- constants.h message.h client.h dobble_server.h game.h card_stack.h
+ message.h client.h constants.h game.h card_stack.h dobble_server.h
 
 network.h:
-
-constants.h:
 
 message.h:
 
 client.h:
 
-dobble_server.h:
+constants.h:
 
 game.h:
 
 card_stack.h:
+
+dobble_server.h:

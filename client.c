@@ -4,18 +4,20 @@
 #include <stdio.h>
 #include "client.h"
 
+
 client *make_client(int fd) {
     client *cl;
     cl = malloc(sizeof(client));
     if (cl == NULL) {
         return NULL;
     }
+    memset(cl, 0, sizeof(client));
     cl->client_fd = fd;
-    cl->bad_messages = 0;
-    cl->secret = 5;
+    cl->secret = 0;
     cl->taken = 1;
-    cl->game = -1;
-    cl->score = -1;
+    cl->game = -2;
+    cl->score = 0;
+    cl->inactive = 0;
     return cl;
 }
 
@@ -31,7 +33,8 @@ void add_new_client(int fd, client* array, int len) {
         free(cl);
         return;
     }
-    //printf("index v poli: %d\n", i);
+    
+    printf("New client on index: %d\n", i);
     memcpy((array+i), cl, sizeof(client));
     free(cl);
 }
@@ -49,7 +52,7 @@ int find_first_empty(client *array, int len) {
 int find_client_by_fd(int fd, client *array, int len) {
     int i;
     for (i = 0; i < len; i++) {
-        if (array[i].client_fd == fd) {
+        if (array[i].client_fd == fd && !array[i].inactive) {
             return i;
         }
     }
@@ -59,8 +62,8 @@ int find_client_by_fd(int fd, client *array, int len) {
 int find_rival_to_client(int fd, client *array, int len) {
     int i;
     for (i = 0; i < len; i++) {
-        if (array[i].game < 0) {
-            if (array[i].client_fd != fd) {
+        if (array[i].game == -1) {
+            if (array[i].client_fd != fd && !array[i].inactive) {
                 return i;
             }
         }
@@ -68,18 +71,30 @@ int find_rival_to_client(int fd, client *array, int len) {
     return -1;
 }
 
-void remove_client(int fd, client *array, int len) {
-    int i;
+void remove_client(client *cl) {
+   /* int i;
     i = find_client_by_fd(fd, array, len);
-    if (i >= 0) {
-        memset((array+i), 0, sizeof(client));
-        printf("odpojil se: %d\n", i);
-    }
+    if (i >= 0) {*/
+        memset(cl, 0, sizeof(client));
+        printf("odpojil se klient.\n");
+    
     
 }
 
+client *find_client_by_secret(client *array, int secret, int len) {
+    int i;
+    for (i = 0; i < len; i++) {
+        if (array[i].secret == secret) {
+            printf("client: %d\n", i);
+            return &array[i];        
+        }
+    }
+    return NULL;
+}
 
-void add_name_to_client(client *cl, char *name, int len) {
-    strncpy(cl->name, name, len);
+int get_secret() {
+    int secret;
+    secret = rand() % (99999 + 1 - 10000) + 10000;
+    return secret;
 
 }

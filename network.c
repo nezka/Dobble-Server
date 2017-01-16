@@ -8,11 +8,13 @@
 #include <sys/ioctl.h>
 #include "network.h"
 #include "constants.h"
+#include "message.h"
 
 
 int bind_it(int port) {
     int server_socket, return_value;
     struct sockaddr_in my_addr;
+    int reuse = 1;
 
     server_socket = socket(AF_INET, SOCK_STREAM, 0);
 
@@ -21,6 +23,8 @@ int bind_it(int port) {
     my_addr.sin_family = AF_INET;
     my_addr.sin_port = htons(port);
     my_addr.sin_addr.s_addr = INADDR_ANY;
+    
+    setsockopt(server_socket, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse));
 
     return_value = bind(server_socket, (struct sockaddr *) &my_addr, \
 		sizeof (struct sockaddr_in));
@@ -80,9 +84,19 @@ int accept_new_connection(int server_socket, struct sockaddr_in *peer_addr, int 
 }
 
 
-void send_it(int fd, char *message, int len) {
-    write(fd, message, len);
-    printf("Odeslana zprava: %s", message);
+void send_it(int fd, message *message) {
+    char sendBuff[BUFF_SIZE];
+    memset(sendBuff, 0, BUFF_SIZE);
+    sendBuff[0] = message->type;
+    sendBuff[1] = message->subtype;
+    memcpy((sendBuff+2), message->str, message->len);
+    if (sendBuff[message->len + 1] != '\n') {
+        printf("ahoj\n");
+        sendBuff[message->len + 2] = '\n';
+    }
+    
+    write(fd, sendBuff, message->len + 3);
+    printf("Odeslana zprava: %s", sendBuff);
 }
 
 

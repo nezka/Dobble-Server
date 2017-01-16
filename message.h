@@ -5,6 +5,7 @@
 
 #include "client.h"
 #include "constants.h"
+#include "game.h"
 
 typedef struct message {
     char type;
@@ -15,7 +16,10 @@ typedef struct message {
 
 void message_ack(message *mes);
 void message_wait(message *mes);
-void message_game_start(message *mes);
+void message_secret(message *mes, client *player);
+void message_victor(message *mes, game *game, int first);
+void message_finish(message *mes, game *g, int first);
+void message_wrong(message *mes, int symbol);
 void make_message(message *mes, char typ, char subtyp, char* str, int len_str);
 message *parse_message(char *rcvBuf, int len);
 

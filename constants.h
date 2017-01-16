@@ -6,8 +6,10 @@
 #define CLIENT_COUNT 30
 #define PLAYER_COUNT 30
 #define GAME_COUNT 20
-#define CARD_COUNT 11
+#define CARD_COUNT 5
+#define SECRET_LEN 5
 #define NAME_LENGTH 10
 #define MESSAGE_LEN 255
+#define SYMBOLS_PER_CARD 5
 #endif /* CONSTANTS_H */
 
