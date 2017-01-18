@@ -96,7 +96,7 @@ void send_it(int fd, message *message) {
     }
     
     write(fd, sendBuff, message->len + 3);
-    printf("Odeslana zprava: %s", sendBuff);
+    printf("FD: %d odeslana zprava: %s", fd, sendBuff);
 }
 
 

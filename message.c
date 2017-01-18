@@ -59,6 +59,12 @@ void message_victor(message *mes, game *game, int first) {
     
 }
 
+void message_opponent(message *mes) {
+    
+    make_message(mes, 'S', 'O', "", 0); 
+  
+}
+
 void message_finish(message *mes, game *g, int first) {
     char str[BUFF_SIZE];
     
@@ -74,13 +80,13 @@ void message_finish(message *mes, game *g, int first) {
     
 }
 
-void message_wrong(message *mes, int symbol) {
+void message_incorrect(message *mes, int symbol) {
 
     char str[BUFF_SIZE];
     
     memset(str, 0, BUFF_SIZE);
     sprintf(str,"%d", symbol);
-    make_message(mes, 'G', 'W', str, strlen(str)); 
+    make_message(mes, 'G', 'I', str, strlen(str)); 
     
 }
 
@@ -88,27 +94,35 @@ void message_to_string(message *mes, char *sendBuf) {
     sprintf(sendBuf, "%c%c%s\n", mes->type, mes->subtype, mes->str);
 }
 
-message *parse_message(char *rcvBuf, int len) {
-    message *mes; int len_str; char typ, subtyp;
+message parse_message(char *rcvBuf, int len) {
+    message mes; int len_str; char typ, subtyp;
     char *str;
     
-    mes = malloc(sizeof(message));
+    printf("nasrat %c\n", *rcvBuf);
+    printf("nasrat %c\n", rcvBuf[1]);
+    printf("nasrat %s\n", rcvBuf);
+    
+    /*mes = malloc(sizeof(message));
+    printf("nasrat %p\n", mes);
     if (mes == NULL) {
         printf("Malloc failure!\n");
         return NULL;
-    }
+    }*/
+    printf("nasrat %c\n", rcvBuf[1]);
     typ = rcvBuf[0];
     subtyp = rcvBuf[1];
     len_str = len - 3;
+    printf("nasrat %s\n", rcvBuf);
     str = malloc(len_str);
     if (str == NULL) {
         printf("Malloc failure!\n");
-        return NULL;
+       // return NULL;
     }
     memcpy(str, rcvBuf + 2, len_str);
-    make_message(mes, typ, subtyp, str, len_str);
+    make_message(&mes, typ, subtyp, str, len_str);
+    printf("nasrat %s\n", rcvBuf);
     free(str);
-    printf("Zprava obdrzena: %s\n", mes->str);
+    printf("Zprava obdrzena: %s\n", mes.str);
     //printf("Type: %c, subtype: %c, len: %d\n", mes->type, mes->subtype, mes->len);
     return mes;
     

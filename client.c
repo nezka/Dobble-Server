@@ -21,6 +21,13 @@ client *make_client(int fd) {
     return cl;
 }
 
+void reset_client(client *cl) {
+    cl->game = -1;
+    cl->inactive = 1;
+    cl->score = 0;
+   
+}
+
 
 
 void add_new_client(int fd, client* array, int len) {
@@ -52,7 +59,7 @@ int find_first_empty(client *array, int len) {
 int find_client_by_fd(int fd, client *array, int len) {
     int i;
     for (i = 0; i < len; i++) {
-        if (array[i].client_fd == fd && !array[i].inactive) {
+        if (array[i].client_fd == fd && array[i].client_fd >= 0) {
             return i;
         }
     }

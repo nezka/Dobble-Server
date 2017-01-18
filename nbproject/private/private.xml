@@ -7,19 +7,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/anvy/NetBeansProjects/Dobble_Server/card_stack.c</file>
-            <file>file:/home/anvy/NetBeansProjects/Dobble_Server/message.h</file>
             <file>file:/home/anvy/NetBeansProjects/Dobble_Server/client.c</file>
             <file>file:/home/anvy/NetBeansProjects/Dobble_Server/network.c</file>
-            <file>file:/home/anvy/NetBeansProjects/Dobble_Server/game.c</file>
-            <file>file:/home/anvy/NetBeansProjects/Dobble_Server/client.h</file>
+            <file>file:/home/anvy/NetBeansProjects/Dobble_Server/card_stack.h</file>
             <file>file:/home/anvy/NetBeansProjects/Dobble_Server/dobble_server.c</file>
             <file>file:/home/anvy/NetBeansProjects/Dobble_Server/message.c</file>
             <file>file:/home/anvy/NetBeansProjects/Dobble_Server/game.h</file>
-            <file>file:/home/anvy/NetBeansProjects/Dobble_Server/network.h</file>
+            <file>file:/home/anvy/NetBeansProjects/Dobble_Server/card_stack.c</file>
+            <file>file:/home/anvy/NetBeansProjects/Dobble_Server/message.h</file>
             <file>file:/home/anvy/NetBeansProjects/Dobble_Server/dobble_server.h</file>
-            <file>file:/home/anvy/NetBeansProjects/Dobble_Server/main.c</file>
             <file>file:/home/anvy/NetBeansProjects/Dobble_Server/console.c</file>
+            <file>file:/home/anvy/NetBeansProjects/Dobble_Server/constants.h</file>
         </group>
     </open-files>
 </project-private>

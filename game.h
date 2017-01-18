@@ -19,6 +19,7 @@ game *make_game(client *first, client *sec);
 int add_new_game(client *first, client *sec, game* array, int len);
 int find_first_empty_game(game *array, int len);
 void remove_game(int i, game *array, int len);
+void remove_the_game(game *the_game);
 
 #endif /* ROOM_H */
 

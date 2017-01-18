@@ -67,6 +67,18 @@ void remove_game(int i, game *array, int len) {
     
 }
 
+void remove_the_game(game *the_game) {
+    
+    /*i = find_client_by_fd(fd, array, len);*/
+    
+        //printf("lalala\n");
+        //free((array+i)->cards);
+        memset(the_game, 0, sizeof(game));
+        printf("Removed game: nejaka\n" );
+    
+    
+}
+
 int find_game_by_client(game *array, client *cl, int len) {
     int i;
     for (i = 0; i < len; i++) {
