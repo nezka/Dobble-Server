@@ -11,37 +11,51 @@
 #include "main.h"
 #include "dobble_server.h"
 #include "console.h"
+#include "thread_param.h"
 
 
-/* if (broad) {
-                            for (i = 3; i < FD_SETSIZE; i++) {
-                                if (FD_ISSET(i, &client_socks) && i != server_socket) {
-                                    send_it(i, sendBuf, 10);
+int port_control(char *argv) {   
+    long val;
+    char *next;
+    
+    val = strtol (argv, &next, 10);
+    if ((next == argv) || (*next != '\0')) {
+        return -1;
+    } else {
+        return val;
+    }
+}
 
-                                }
-                            }
-                        } else {*/
 
 int main(int argc, char** argv) {
    
-    int port;
-   
+    int port, should_run = 1;
+    thread_param param;
     pthread_t console_thread;
     pthread_t network_thread;
-
-    if (pthread_create(&console_thread, NULL, console_listening, NULL)) {
-        printf("Error creating  console thread\n");
+    
+    if (argc != 2) {
+        printf("Incorrect number of arguments.\nStart program with one integer argument that is the port number.");
         return 1;
     }
 
-    if (argc == 2) {
-        port = 10007;//atoi(argv[1]);
-        if (pthread_create(&network_thread, NULL, run_game, (void *)&port)) {
-            printf("Error creating network thread\n");
-            return 1;
-          }   
-    } else {
-        printf("Malo argv.");
+    port = port_control(argv[1]);
+    
+    if (port < 0 || port > 65535) {
+        printf("Incorrect port number.\nPort number must be in the range <0;65535>.");
+        return 1;
+    }
+    
+    param.port = port;
+    param.should_run = should_run;
+    if (pthread_create(&network_thread, NULL, run_game, (void *)&param)) {
+        printf("Error creating network thread\n");
+        return 1;
+    }   
+ 
+    if (pthread_create(&console_thread, NULL, console_listening, (void *)&(param.should_run))) {
+        printf("Error creating  console thread\n");
+        return 1;
     }
     
     if (pthread_join(console_thread, NULL)) {
@@ -53,7 +67,6 @@ int main(int argc, char** argv) {
         printf("Error joining network thread\n");
         return 2;
     }
-
     return (EXIT_SUCCESS);
 }
 

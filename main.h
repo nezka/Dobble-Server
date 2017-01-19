@@ -9,6 +9,7 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+int port_control(char *argv) ;
 
 #endif /* MAIN_H */
 

@@ -8,11 +8,12 @@
 #include <sys/ioctl.h>
 #include "network.h"
 #include "constants.h"
-
+#include "thread_param.h"
 #include "dobble_server.h"
+#include "thread_param.h"
 
 void *run_game(void *param) {
-    int port, i, j, a2read, fd, return_value, client_socket, len_addr, server_socket, index, should_run, game_message, game_index;
+    int port, i, j, a2read, fd, return_value, client_socket, len_addr, server_socket, index, game_message, game_index;
     char rcvBuf[BUFF_SIZE];
     // char sendBuf[BUFF_SIZE];
     fd_set tests, client_socks;
@@ -20,17 +21,18 @@ void *run_game(void *param) {
     client curr_client, client_arr[CLIENT_COUNT];
     game game_arr[GAME_COUNT];
     message mes;
+    int *should_run;
 
-
-    should_run = 1;
-    port = *(int *) param;
+    thread_param *params = (thread_param *)param;
+    should_run = &params->should_run;
+    port = params->port;
     server_socket = server_init(port);
     client_socks = fd_init(server_socket);
 
     memset(client_arr, 0, CLIENT_COUNT * sizeof (client));
     memset(game_arr, 0, GAME_COUNT * sizeof (game));
 
-    while (should_run) {
+    while (*should_run) {
 
         tests = client_socks;
         FD_SET(0, &tests);
