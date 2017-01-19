@@ -1,16 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include "card_stack.h"
 #include "constants.h"
 
-
+/*
 void printCard(s_card *card, int crd) {
     int i;
     printf("karta %d[%p]: \n", crd, card);
@@ -19,7 +13,7 @@ void printCard(s_card *card, int crd) {
 
     }
     printf("\n");
-}
+}*/
 
 int init_stack(card_stack *stack) {
     int i;
@@ -27,8 +21,6 @@ int init_stack(card_stack *stack) {
     stack->player1 = (CARD_COUNT - 1) / 2;
     stack->player2 = 0;
     fill_symbols(stack->card_symbols, CARD_COUNT);
-    
-    printf("middle: %d, p1: %d, p2: %d\n", stack->middle, stack->player1, stack->player2);
 
 
     for (i = 0; i < CARD_COUNT; i++) {
@@ -69,7 +61,6 @@ void fill_symbols(s_card *card_symbols, int card_count) {
 int is_it_right_symbol(int player_card, int middle, int symbol, card_stack *stack) {
     int i, right = 0;
     s_card *card;
-    printf("dalsi karta%d\n", stack->card_symbols->symbols[4]);
     card = stack->card_symbols + player_card;
     for (i = 0; i < SYMBOLS_PER_CARD; i++) {
 

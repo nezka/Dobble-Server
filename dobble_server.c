@@ -41,15 +41,14 @@ void *run_game(void *param) {
             return NULL;
         }
 
-        // vynechavame stdin, stdout, stderr
         for (fd = 3; fd < FD_SETSIZE; fd++) {
-            // je dany socket v sade fd ze kterych lze cist ?
+  
             if (FD_ISSET(fd, &tests)) {
                 if (fd == server_socket) {
                     client_socket = accept_new_connection(server_socket, &peer_addr, &len_addr);
                     add_new_client(client_socket, client_arr, CLIENT_COUNT);
                     FD_SET(client_socket, &client_socks);
-                    printf("Pripojen novy klient a pridan do sady socketu\n");
+                    //printf("Pripojen novy klient a pridan do sady socketu\n");
 
                 } else {
                     game_message = 0;
@@ -57,23 +56,21 @@ void *run_game(void *param) {
                     if (a2read > 0) {
                         memset(rcvBuf, 0, BUFF_SIZE);
                         read(fd, rcvBuf, a2read);
-                        printf("a2r: %d\n", a2read);
+
                         if (a2read < 3 || a2read > 255) {
-                            printf("Wrong format of message!\n");
+
                         } else {
-                            printf("a2r: %d\n", a2read);
+
                             game_message = 1;
-                            printf("a2r: %d\n", a2read);
+
                             mes = parse_message(rcvBuf, a2read);
-                            printf("a2r: %d\n", a2read);
+
                             i = find_client_by_fd(fd, client_arr, CLIENT_COUNT);
                             if (i < 0) {
                                 game_message = 0;
-                                printf("shiiiiiiiiiiiit %d\n", game_message);
                             }
                             process_message(&mes, client_arr, i, game_arr, &game_message);
-                            //free(mes);
-                            printf("game_message: %d\n", game_message);
+                    
                         }
 
                     }
@@ -94,7 +91,7 @@ void *run_game(void *param) {
                                     remove_client(game_arr[game_index].player2);
                                 }
                                 remove_game(game_index, game_arr, GAME_COUNT);
-                                printf("Removing all.\n");
+                         
                             } else {
                                 message_opponent(&mes);
                                 if (!game_arr[game_index].player2->inactive) {
@@ -107,7 +104,7 @@ void *run_game(void *param) {
                         } else {
                             remove_client(&(client_arr[index]));
                         }
-                        printf("Klient se odpojil a byl odebran ze sady socketu\n");
+                        //printf("Klient se odpojil a byl odebran ze sady socketu\n");
                     }
                 }
             }
@@ -144,7 +141,6 @@ void process_game_message(message *mes, client *clients, int cl, game *games, in
             break;
         case 'A':
             cur_cl->inactive = 0; 
-            printf("client aktivovan\n");
            break;
         case 'B':
             bye_opponent(cur_cl, games);
@@ -170,34 +166,30 @@ void card_clicked(message *mes, client *cl, game *games) {
     }
     cur = strtok(NULL, ";");
     symbol = atoi(cur);
-    printf("%d %d \n", the_game->stack.player1, the_game->stack.middle);
+
     if (first) {
-        printf("zasrana karta: %d\n", the_game->stack.card_symbols->symbols[4]);
 
         right = is_it_right_symbol(the_game->stack.player1, the_game->stack.middle, symbol, &(the_game->stack));
-        printf("first\n");
         if (right) {
             the_game->player1->score++;
             the_game->stack.middle = the_game->stack.player1;
             the_game->stack.player1++;
 
         } else {
-            message_incorrect(mes, symbol);
-            send_it(the_game->player1->client_fd, mes);
+            /*message_incorrect(mes, symbol);
+            send_it(the_game->player1->client_fd, mes);*/
             return;
         }
 
     } else {
-        printf("first2\n");
         right = is_it_right_symbol(the_game->stack.player2, the_game->stack.middle, symbol, &(the_game->stack));
-        printf("first\n");
         if (right) {
             the_game->player2->score++;
             the_game->stack.middle = the_game->stack.player2;
             the_game->stack.player2++;
         } else {
-            message_incorrect(mes, symbol);
-            send_it(the_game->player2->client_fd, mes);
+            /*(mes, symbol);
+            send_it(the_game->player2->client_fd, mes);*/
             return;
         }
     }
@@ -206,11 +198,8 @@ void card_clicked(message *mes, client *cl, game *games) {
         send_it(the_game->player1->client_fd, mes);
         message_finish(mes, the_game, 0);
         send_it(the_game->player2->client_fd, mes);
-        printf("Player1 fd: %d\n", the_game->player1->client_fd);
-        printf("Player2 fd: %d\n", the_game->player2->client_fd);
         reset_client(the_game->player1);
         reset_client(the_game->player2);
-        printf("vyreset clients\n");
         remove_the_game(the_game);
     } else {
         the_game->round++;
@@ -279,7 +268,7 @@ void new_connected(message *mes, client *clients, client *cur_cl, game *games) {
     rival->secret = get_secret();
     cur_cl->secret = get_secret();
 
-    printf("game id = %d\n", game_id);
+    //printf("game id = %d\n", game_id);
 
     message_secret(mes, (games[game_id]).player1);
     send_it(games[game_id].player1->client_fd, mes);
@@ -301,9 +290,6 @@ void process_service_message(message *mes, ) {
             break;
         default:
             *game_message = 0;
-
-
     }
 }
 */
-

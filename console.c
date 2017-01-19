@@ -15,18 +15,12 @@ void *console_listening(void *param) {
         c = '6';
         memset(rcv, 0, CONSOLE_BUFF);
         read(STDIN_FILENO, rcv, CONSOLE_BUFF);
-//        if (rcv[CONSOLE_BUFF - 1] != '\n') {
-//            while (c != '\n' && c != EOF) {
-//                 c = getchar();
-//            }
-//        }
         if (!strcmp(rcv, "EXIT\n")) {
             should_run = 0;
            // stop_server_thread();
             exit(0);
         }
        
-       printf("%s", rcv);
     }
     return NULL;
 }

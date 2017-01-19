@@ -1,4 +1,3 @@
-
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -41,7 +40,7 @@ void add_new_client(int fd, client* array, int len) {
         return;
     }
     
-    printf("New client on index: %d\n", i);
+    //printf("New client on index: %d\n", i);
     memcpy((array+i), cl, sizeof(client));
     free(cl);
 }
@@ -79,20 +78,17 @@ int find_rival_to_client(int fd, client *array, int len) {
 }
 
 void remove_client(client *cl) {
-   /* int i;
-    i = find_client_by_fd(fd, array, len);
-    if (i >= 0) {*/
-        memset(cl, 0, sizeof(client));
-        printf("odpojil se klient.\n");
-    
-    
+
+    memset(cl, 0, sizeof(client));
+    //printf("odpojil se klient.\n");
+
 }
 
 client *find_client_by_secret(client *array, int secret, int len) {
     int i;
     for (i = 0; i < len; i++) {
         if (array[i].secret == secret) {
-            printf("client: %d\n", i);
+           // printf("client: %d\n", i);
             return &array[i];        
         }
     }

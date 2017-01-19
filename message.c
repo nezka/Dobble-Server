@@ -37,16 +37,12 @@ void message_victor(message *mes, game *game, int first) {
     str[7] = ';';
   
     if (first) {
-        printf("client nalezena4111\n");
         str[0] = game->player1->score + '0';
-         printf("client nalezena3\n");
         str[2] = game->player2->score + '0';
-         printf("client nalezena4\n");
         str[6] = game->stack.player1 + '0';
         
     } else {
         str[0] = game->player2->score + '0';
-         printf("client nalezena5\n");
         str[2] = game->player1->score + '0';
         str[6] = game->stack.player2 + '0';
         
@@ -54,7 +50,6 @@ void message_victor(message *mes, game *game, int first) {
     str[4] = game->round + '0';
     str[8] = game->stack.middle + '0';
     str[9] = '\n';
-    printf("\n%zd\n", strlen(str));
     make_message(mes, 'G', 'V', str, strlen(str)); 
     
 }
@@ -97,22 +92,9 @@ void message_to_string(message *mes, char *sendBuf) {
 message parse_message(char *rcvBuf, int len) {
     message mes; int len_str; char typ, subtyp;
     char *str;
-    
-    printf("nasrat %c\n", *rcvBuf);
-    printf("nasrat %c\n", rcvBuf[1]);
-    printf("nasrat %s\n", rcvBuf);
-    
-    /*mes = malloc(sizeof(message));
-    printf("nasrat %p\n", mes);
-    if (mes == NULL) {
-        printf("Malloc failure!\n");
-        return NULL;
-    }*/
-    printf("nasrat %c\n", rcvBuf[1]);
     typ = rcvBuf[0];
     subtyp = rcvBuf[1];
     len_str = len - 3;
-    printf("nasrat %s\n", rcvBuf);
     str = malloc(len_str);
     if (str == NULL) {
         printf("Malloc failure!\n");
@@ -120,9 +102,8 @@ message parse_message(char *rcvBuf, int len) {
     }
     memcpy(str, rcvBuf + 2, len_str);
     make_message(&mes, typ, subtyp, str, len_str);
-    printf("nasrat %s\n", rcvBuf);
     free(str);
-    printf("Zprava obdrzena: %s\n", mes.str);
+    
     //printf("Type: %c, subtype: %c, len: %d\n", mes->type, mes->subtype, mes->len);
     return mes;
     
@@ -134,8 +115,6 @@ void make_message(message *mes, char typ, char subtyp, char* str, int len_str) {
     mes->type = typ;
     mes->subtype = subtyp;
     mes->len = len_str;
-    //memset(mes->str, 0, MESSAGE_LEN);
     memcpy(mes->str, str, len_str);
-    
-    
+   
 }

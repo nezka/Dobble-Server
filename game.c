@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -39,7 +34,7 @@ int add_new_game(client *first, client *sec, game* array, int len) {
     }
     first->game = i;
     sec->game = i;
-    printf("New game on index: %d\n", i);
+    //printf("New game on index: %d\n", i);
     memcpy((array+i), g, sizeof(game));
     free(g);
     return i;
@@ -56,27 +51,17 @@ int find_first_empty_game(game *array, int len) {
 }
 
 void remove_game(int i, game *array, int len) {
-   /* int i;*/
-    /*i = find_client_by_fd(fd, array, len);*/
+
     if (i >= 0) {
-        //printf("lalala\n");
-        //free((array+i)->cards);
         memset((array+i), 0, sizeof(game));
-        printf("Removed game: %d\n", i);
+        //printf("Removed game: %d\n", i);
     }
     
 }
 
 void remove_the_game(game *the_game) {
-    
-    /*i = find_client_by_fd(fd, array, len);*/
-    
-        //printf("lalala\n");
-        //free((array+i)->cards);
+
         memset(the_game, 0, sizeof(game));
-        printf("Removed game: nejaka\n" );
-    
-    
 }
 
 int find_game_by_client(game *array, client *cl, int len) {
@@ -90,4 +75,3 @@ int find_game_by_client(game *array, client *cl, int len) {
     }
     return -1;
 }
-

@@ -91,12 +91,9 @@ void send_it(int fd, message *message) {
     sendBuff[1] = message->subtype;
     memcpy((sendBuff+2), message->str, message->len);
     if (sendBuff[message->len + 1] != '\n') {
-        printf("ahoj\n");
         sendBuff[message->len + 2] = '\n';
     }
     
     write(fd, sendBuff, message->len + 3);
-    printf("FD: %d odeslana zprava: %s", fd, sendBuff);
+    //printf("FD: %d odeslana zprava: %s", fd, sendBuff);
 }
-
-
