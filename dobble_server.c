@@ -15,7 +15,6 @@
 void *run_game(void *param) {
     int port, i, j, a2read, fd, return_value, client_socket, len_addr, server_socket, index, game_message, game_index;
     char rcvBuf[BUFF_SIZE];
-    // char sendBuf[BUFF_SIZE];
     fd_set tests, client_socks;
     struct sockaddr_in my_addr, peer_addr;
     client curr_client, client_arr[CLIENT_COUNT];
@@ -23,7 +22,7 @@ void *run_game(void *param) {
     message mes;
     int *should_run;
 
-    thread_param *params = (thread_param *)param;
+    thread_param *params = (thread_param *) param;
     should_run = &params->should_run;
     port = params->port;
     server_socket = server_init(port);
@@ -44,35 +43,29 @@ void *run_game(void *param) {
         }
 
         for (fd = 3; fd < FD_SETSIZE; fd++) {
-  
+
             if (FD_ISSET(fd, &tests)) {
                 if (fd == server_socket) {
                     client_socket = accept_new_connection(server_socket, &peer_addr, &len_addr);
-                    add_new_client(client_socket, client_arr, CLIENT_COUNT);
+                    index = add_new_client(client_socket, client_arr, CLIENT_COUNT);
                     FD_SET(client_socket, &client_socks);
-                    //printf("Pripojen novy klient a pridan do sady socketu\n");
+                    printf("New client added with the index %d and the fd number %d.\n", index, client_socket);
 
                 } else {
                     game_message = 0;
                     ioctl(fd, FIONREAD, &a2read);
-                    if (a2read > 0) {
+                    if (a2read > 2 && a2read < 16) {
                         memset(rcvBuf, 0, BUFF_SIZE);
                         read(fd, rcvBuf, a2read);
+                        game_message = 1;
 
-                        if (a2read < 3 || a2read > 255) {
+                        mes = parse_message(rcvBuf, a2read);
 
+                        i = find_client_by_fd(fd, client_arr, CLIENT_COUNT);
+                        if (i < 0) {
+                            game_message = 0;
                         } else {
-
-                            game_message = 1;
-
-                            mes = parse_message(rcvBuf, a2read);
-
-                            i = find_client_by_fd(fd, client_arr, CLIENT_COUNT);
-                            if (i < 0) {
-                                game_message = 0;
-                            }
                             process_message(&mes, client_arr, i, game_arr, &game_message);
-                    
                         }
 
                     }
@@ -93,20 +86,23 @@ void *run_game(void *param) {
                                     remove_client(game_arr[game_index].player2);
                                 }
                                 remove_game(game_index, game_arr, GAME_COUNT);
-                         
+                                printf("Game with the index %d removed.\n",game_index);
+
                             } else {
                                 message_opponent(&mes);
                                 if (!game_arr[game_index].player2->inactive) {
                                     send_it(game_arr[game_index].player2->client_fd, &mes);
-                                } 
+                                }
                                 if (!game_arr[game_index].player1->inactive) {
                                     send_it(game_arr[game_index].player1->client_fd, &mes);
-                                } 
+                                }
+                                 printf("Opponent left message send.\n");
                             }
                         } else {
                             remove_client(&(client_arr[index]));
+                            printf("Client with the index %d removed.\n", index);
                         }
-                        //printf("Klient se odpojil a byl odebran ze sady socketu\n");
+                        
                     }
                 }
             }
@@ -124,8 +120,6 @@ void process_message(message *mes, client *clients, int cl, game *games, int *ga
             break;
         case 'S':
             // process_service_message();
-            
-
         default:
             *game_message = 0;
 
@@ -142,8 +136,8 @@ void process_game_message(message *mes, client *clients, int cl, game *games, in
             card_clicked(mes, cur_cl, games);
             break;
         case 'A':
-            cur_cl->inactive = 0; 
-           break;
+            cur_cl->inactive = 0;
+            break;
         case 'B':
             bye_opponent(cur_cl, games);
             break;
@@ -154,7 +148,6 @@ void process_game_message(message *mes, client *clients, int cl, game *games, in
 
     }
 }
-
 
 void card_clicked(message *mes, client *cl, game *games) {
     char *cur;
@@ -222,7 +215,7 @@ void bye_opponent(client *cur_cl, game *games) {
     remove_the_game(&games[cur_cl->game]);
     reset_client(cur_cl);
     cur_cl->inactive = 0;
-    
+
 }
 
 void new_connected(message *mes, client *clients, client *cur_cl, game *games) {
@@ -231,7 +224,7 @@ void new_connected(message *mes, client *clients, client *cur_cl, game *games) {
     game *retry_game;
     client *rival;
     char str[SECRET_LEN + 1];
-    
+
     if (cur_cl->game != -1 && cur_cl->game != -2) {
         return;
     }
@@ -291,7 +284,7 @@ void process_service_message(message *mes, ) {
         case 'N':
             break;
         default:
-            *game_message = 0;
+ *game_message = 0;
     }
 }
-*/
+ */

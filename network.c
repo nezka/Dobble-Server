@@ -95,5 +95,5 @@ void send_it(int fd, message *message) {
     }
     
     write(fd, sendBuff, message->len + 3);
-    //printf("FD: %d odeslana zprava: %s", fd, sendBuff);
+    printf("Message send: type: %c, subtype: %c, message: %s\n", message->type, message->subtype, message->str);
 }

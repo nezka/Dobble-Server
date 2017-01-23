@@ -29,7 +29,7 @@ void reset_client(client *cl) {
 
 
 
-void add_new_client(int fd, client* array, int len) {
+int add_new_client(int fd, client* array, int len) {
     client *cl;
     int i;
     cl = make_client(fd);
@@ -37,12 +37,13 @@ void add_new_client(int fd, client* array, int len) {
     if (i < 0) {
         printf("spatne add new client");
         free(cl);
-        return;
+        return -1;
     }
     
     //printf("New client on index: %d\n", i);
     memcpy((array+i), cl, sizeof(client));
     free(cl);
+    return i;
 }
 
 int find_first_empty(client *array, int len) {

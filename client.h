@@ -21,6 +21,7 @@ int find_first_empty(client *array, int len);
 int find_rival_to_client(int fd, client *array, int len);
 client *find_client_by_secret(client *array, int secret, int len);
 int get_secret();
+int add_new_client(int fd, client* array, int len) ;
 
 #endif /* CLIENT_H */
 

@@ -104,7 +104,7 @@ message parse_message(char *rcvBuf, int len) {
     make_message(&mes, typ, subtyp, str, len_str);
     free(str);
     
-    //printf("Type: %c, subtype: %c, len: %d\n", mes->type, mes->subtype, mes->len);
+    printf("Message recieved: type: %c, subtype: %c, message: %s\n", mes.type, mes.subtype, mes.str);
     return mes;
     
 }
