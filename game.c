@@ -56,11 +56,13 @@ void remove_game(int i, game *array, int len) {
         memset((array+i), 0, sizeof(game));
         //printf("Removed game: %d\n", i);
     }
+    printf("Game removed.\n");
     
 }
 
 void remove_the_game(game *the_game) {
 
+        printf("Game removed.\n");
         memset(the_game, 0, sizeof(game));
 }
 
