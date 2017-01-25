@@ -243,7 +243,7 @@ void new_connected(message *mes, client *clients, client *cur_cl, game *games) {
             remove_client(cur_cl);
             retry_game = &games[retry_client->game];
             retry_game->player_count++;
-            printf("Client with fd %d reconnected.", retry_client->client_fd);
+            printf("Client with fd %d reconnected.\n", retry_client->client_fd);
             message_victor(mes, retry_game, 1); //          
             send_it(retry_game->player1->client_fd, mes);
             message_victor(mes, retry_game, 0);
